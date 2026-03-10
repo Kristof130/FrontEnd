@@ -31,3 +31,13 @@ C:\Users\gjozsef.SZIKSZI\GameStore2\GameStore.Frontend\obj\Debug\net9.0\refint\G
 C:\Users\gjozsef.SZIKSZI\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.pdb
 C:\Users\gjozsef.SZIKSZI\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.genruntimeconfig.cache
 C:\Users\gjozsef.SZIKSZI\GameStore2\GameStore.Frontend\obj\Debug\net9.0\ref\GameStore.Frontend.dll
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\rpswa.dswa.cache.json
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.GeneratedMSBuildEditorConfig.editorconfig
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.AssemblyInfoInputs.cache
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.AssemblyInfo.cs
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.csproj.CoreCompileInputs.cache
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.MvcApplicationPartsAssemblyInfo.cache
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.sourcelink.json
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.dll
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\refint\GameStore.Frontend.dll
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.pdb

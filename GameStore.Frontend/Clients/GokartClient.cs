@@ -11,7 +11,7 @@ public class GokartClient(HttpClient httpClient)
     public async Task<GokartDetails> GetGameAsync(int id) => 
         await httpClient.GetFromJsonAsync<GokartDetails>($"gokarts/{id}") 
         ?? throw new InvalidOperationException($"Game with ID {id} not found.");
-    public async Task UpdateGameAsync(GokartDetails updatedGokart) =>    
+    public async Task UpdateGokartAsync(GokartDetails updatedGokart) =>    
         await httpClient.PutAsJsonAsync($"gokarts/{updatedGokart.Id}", updatedGokart);
     public async Task DeleteGokartAsync(int id) =>    
         await httpClient.DeleteAsync($"gokarts/{id}");    

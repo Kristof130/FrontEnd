@@ -1,7 +1,9 @@
 ﻿@page "/"
 @using GameStore.Frontend.Clients
 @using GameStore.Frontend.Models
-@inject GamesClient Client
+@inject BerloClient BClient
+@inject BerlesClient B2Client
+@inject GokartClient GClient
 @attribute [StreamRendering]
 
 <PageTitle>Game Catalog</PageTitle>
@@ -25,7 +27,7 @@ else {
         <th></th>
     </thead>
     <tbody>
-        @foreach (var game in games)
+        @foreach (BerloSummary game in games)
         {
             <tr>
                 <td>@game.Id</td>
@@ -49,15 +51,15 @@ else {
 }
 
 @code {
-    private GameSummary[]? games;
+    private BerloSummary[]? games;
     protected override async Task OnInitializedAsync()
     {
-        games = await Client.GetGamesAsync();
+        games = await BClient.GetBerloAsync();
     }
 
     private static string GameUrl(int id) => $"/editgame/{id}";     
 
-    private string GetDeleteModalId(GameSummary game) {
+    private string GetDeleteModalId(BerloSummary game) {
         return $"#{DeleteGame.GetModalId(game)}";
     } 
 }

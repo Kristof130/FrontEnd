@@ -1,0 +1,50 @@
+@page "/"
+@using GameStore.Frontend.Clients
+@using GameStore.Frontend.Models
+
+@inject BerlesClient BClient
+@attribute [StreamRendering]
+
+<PageTitle>Game Catalog</PageTitle>
+
+@if (berles is null)
+{
+    <p><em>Loading...</em></p>
+}
+else{
+    <table class="table table-striped table-bordered table-hover mt-3">
+        <thead class="table-dark">
+            <th>ID</th>
+            <th>Gokárt Idje</th>
+            <th>Bérlő Idje</th>
+            <th class="text-end">Bérlés Kezdődátuma</th>
+            <th>Bérlés hossza(napokban)</th>
+        </thead>
+        <tbody>
+            @foreach (BerlesSummary game in berles)
+            {
+                <tr>
+                    <td>@game.ID</td>
+                    <td>@game.Gokart_Id</td>
+                    <td>@game.Berlo_Id</td>
+                    <td class="text-end">@game.KezdoDatum.ToString("C2")</td>
+                    <td>@game.Berles_hossza</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+
+}
+
+
+@code {
+    private BerlesSummary[]? berles;
+
+    protected override async Task OnInitializedAsync()
+    {
+        berles = await BClient.GetBerlesAsync();
+    }
+}

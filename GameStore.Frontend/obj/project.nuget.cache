@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "CEOAKygqHQk=",
   "success": true,
   "projectFilePath": "Z:\\frontend\\FrontEnd\\GameStore.Frontend\\GameStore.Frontend.csproj",
+=======
+  "dgSpecHash": "1r1DkEKOREY=",
+  "success": true,
+  "projectFilePath": "z:\\tejfolvizsga\\GameStore2\\GameStore.Frontend\\GameStore.Frontend.csproj",
+>>>>>>> aca4c39cba0db709e5314d73898aafb98efb55ed
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -4,15 +4,11 @@ using GameStore.Frontend.Converters;
 
 namespace GameStore.Frontend.Models;
 
-public class GameDetails
+public class BerlesDetails
 {
-    public int Id { get; set; }
-    [Required][StringLength(50)]
-    public required string  Name { get; set; }
-    [Required(ErrorMessage ="The Genre field is required")]
-    [JsonConverter(typeof(StringConverter))]
-    public string? GenreId { get; set; }
-    [Range(1, 100)]
-    public decimal Price { get; set; }
-    public DateOnly ReleaseDate { get; set; }
+   public int ID { get; set; }
+public  int Gokart_Id { get; set; }
+public  int Berlo_Id { get; set; }
+public DateOnly KezdoDatum { get; set; }
+public int Berles_hossza { get; set; }
 }
