@@ -20,7 +20,7 @@
 
 @code {
     [Parameter]
-    public GameSummary? Game { get; set; }
+    public BerloSummary? Game { get; set; }
 
     private string title = string.Empty;
 
@@ -29,7 +29,7 @@
             title = $"Delete {Game?.Name}?";
        
     }
-    public static string GetModalId(GameSummary? game)
+    public static string GetModalId(BerloSummary? game)
     {
         ArgumentNullException.ThrowIfNull(game);
         return $"deleteModal-{game.Id}";
