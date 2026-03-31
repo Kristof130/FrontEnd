@@ -1,22 +1,32 @@
 using GameStore.Frontend.Clients;
 using GameStore.Frontend.Components;
+using GameStore.Frontend.Components.Pages;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents().AddCircuitOptions(options =>
+{
+    options.DetailedErrors = true;
+    options.DisconnectedCircuitMaxRetained = 5;
+});
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
+builder.Services.AddServerSideBlazor(option => option.DetailedErrors = true);
+
 var gameStoreApiUrl = builder.Configuration["GameStoreApiUrl"] ?? 
     throw new InvalidOperationException("GameStoreApiUrl configuration is missing.");
     
-builder.Services.AddHttpClient<GamesClient>(
+builder.Services.AddHttpClient<GokartokClient>(
     client => client.BaseAddress = new Uri(gameStoreApiUrl)
 );
-builder.Services.AddHttpClient<GenresClient>(
+builder.Services.AddHttpClient<BerloClient>(
+    client => client.BaseAddress = new Uri(gameStoreApiUrl)
+);
+builder.Services.AddHttpClient<BerlesClient>(
     client => client.BaseAddress = new Uri(gameStoreApiUrl)
 );
 
-builder.Services.AddSingleton<GamesClient>();
-builder.Services.AddSingleton<GenresClient>();
 
 var app = builder.Build();
 

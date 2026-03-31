@@ -1,15 +1,16 @@
-﻿@page "/editgame"
+﻿ 
+@page "/editgame"
 @page "/editgame/{Id:int}"
+@attribute [StreamRendering]
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
-@inject GamesClient GamesClient
-@inject GenresClient GenresClient
-@using GameStore.Frontend.Models
-@using GameStore.Frontend.Clients
+@inject GokartokClient GClient
+@inject BerloClient BClient
+@inject BerlesClient B2Client
 
 <PageTitle>@title</PageTitle> 
 <h3>@title</h3>
- @if (genres is  null || game is null)
+ @if (Gokartok is  null || Berlok is null || Berles is null)
 {
       <p><em>Loading...</em></p>
 }
@@ -17,34 +18,53 @@ else
 {      
     <div class="row">
     <div class="col-md-4">
-    <EditForm Model="@game" FormName="editGame" OnValidSubmit="HandleSubmitAsync" Enhance>
+    <EditForm Model="@Berles" FormName="editGame" OnValidSubmit="HandleSubmitAsync" Enhance>
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <div class="mb-3">
-        <label for="name" class="form-label">Name:</label>
-        <InputText id="name" class="form-control" @bind-Value="game.Name" />
-        <ValidationMessage For="() => game.Name" />
-    </div> 
-    <div class="mb-3">
-        <label for="genre" class="form-label">Genre:</label>
-        <InputSelect id="genre" class="form-select" @bind-Value="game.GenreId" >
-            <option value="">-- Select Genre --</option>       
-                @foreach (var genre in genres)
+       
+   <div class="mb-3">
+        <label for="gokart" class="form-label">Gokart:</label>
+        <InputSelect id="gokart" class="form-select" @bind-Value="Berles.Gokart_Id" >
+            <option value="">-- Select Gokart --</option>       
+                @foreach (var gokart in Gokartok)
                 {
-                    <option value="@genre.Id">@genre.Name</option>
+                    if (gokart.Foglalt_e == 0)
+                    {
+                        <option value="@gokart.Id">@gokart.Gyarto @gokart.Tipus</option>
+                    }
+                    
                 }        
         </InputSelect>
-        <ValidationMessage For="() => game.GenreId" />
+       <!-- <ValidationMessage For="() => Gokart.Tipus" />-->
     </div>  
+
+<div class="mb-3">
+        <label for="berlo" class="form-label">Bérlők:</label>
+
+        <!-- Előre eldöntött értékek -->
+       <InputSelect id="berlo" class="form-select" @bind-Value="Berles.Berlo_Id" >
+            <option value="">-- Select Person --</option>       
+                @foreach (var item in Berlok)
+                {
+                    <option value="@item.id">@item.Berlo_Neve</option>
+                }      
+        </InputSelect>    
+
+        <!-- Kézzel beírható név értékek -->
+     <!--   <InputText id="berlonev" class="form-control" @bind-Value="Berlo.Berlo_Neve" /> -->
+
+        <!--<ValidationMessage For="() => Gokart.Tipus" />-->
+    </div>
+    
     <div class="mb-3">
-        <label for="price" class="form-label">Price:</label>
-        <InputNumber id="price" class="form-control" @bind-Value="game.Price" />
-        <ValidationMessage For="() => game.Price" />
-    </div>  
-    <div class="mb-3">
-        <label for="releaseDate" class="form-label">Release Date:</label>
-        <InputDate id="releaseDate" class="form-control" @bind-Value="game.ReleaseDate" />
+        <label for="Kezodatum" class="form-label">Bérlés Kezdődátuma:</label>
+        <InputDate id="Kezdodatum" class="form-control" @bind-Value="Berles.KezdoDatum" />
     </div> 
+    <div class="mb-3">
+        <label for="price" class="form-label">Days:</label>
+        <InputNumber id="price" class="form-control" @bind-Value="Berles.Berles_hossza" />
+        <!--<ValidationMessage For="() => Gokart.NapiAr" />-->
+    </div>  
     <button type="submit" class="btn btn-primary">Save</button>
     <a role="button" class="btn btn-secondary" href="/">Cancel</a>  
 </EditForm>
@@ -53,54 +73,73 @@ else
 }
 
 @code {
+    
     [Parameter]
     public int? Id { get; set; }
     [SupplyParameterFromForm]
-    private GameDetails? game { get; set; }
-    private Genre[]? genres;
+    private GokartDetails? Gokart { get; set; }
+    private BerlesDetails? Berles { get; set; }
+    public BerloDetails? Berlo { get; set; }  
+    private BerloSummary[]? Berlok;
+    private GokartSummary[]? Gokartok;    
+
     private string title = string.Empty;
+
 
     protected override async Task OnParametersSetAsync()
     {
-        if (game is not null)
+        if (Berles is not null)
         {
             return;
         }
 
         if (Id is not null)
         {
-            game = await GamesClient.GetGameAsync(Id.Value);
-            title = $"Edit {game.Name}";
+            Berles = await B2Client.GetBerlesAsync(Id.Value);
+            title = $"Edit {Berles.ID}";
         }
         else
         {
-            game = new()
-            {
-                Name = string.Empty,
-                ReleaseDate = DateOnly.FromDateTime(DateTime.UtcNow)
+            Berles = new BerlesDetails()
+            {                
+                KezdoDatum = DateOnly.FromDateTime(DateTime.UtcNow)
             };
-            title = "New Game";
+            title = "Új Berles";
         }
     }
     protected override async Task OnInitializedAsync() 
     {
-        genres = await GenresClient.GetGenresAsync();
+        try
+        {           
+            Gokartok = await GClient.GetGokartokAsync();
+            Berlok = await BClient.GetBerlokAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error loading data: {ex.Message}");
+        }
     }
 
     private async Task HandleSubmitAsync()
     {
-        ArgumentNullException.ThrowIfNull(game);
+        ArgumentNullException.ThrowIfNull(Berles);
 
         if (Id is null)
         {
-            await GamesClient.AddGameAsync(game);           
+            await B2Client.AddBerlesAsync(Berles);
         }
-        else    
+
+
+        if (Id is not null)    
         {
-            game.Id = Id.Value;
-            await GamesClient.UpdateGameAsync(game);
+            Berles.ID = Id.Value;
+            await B2Client.UpdateBerlesAsync(Berles);
         }
         
+
+        
+
+
         NavigationManager.NavigateTo("/");
     }   
 }
