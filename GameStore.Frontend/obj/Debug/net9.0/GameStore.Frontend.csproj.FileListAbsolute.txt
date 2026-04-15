@@ -53,7 +53,6 @@ Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\rjsmcshtml.dswa.c
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\scopedcss\Components\Layout\MainLayout.razor.rz.scp.css
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\scopedcss\bundle\GameStore.Frontend.styles.css
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\scopedcss\projectbundle\GameStore.Frontend.bundle.scp.css
-Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\compressed\hpytjbslhg-4kywy7iv6g.gz
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\compressed\qc129nah4a-2t0phemdep.gz
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\compressed\602xsdby15-2t0phemdep.gz
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\staticwebassets.build.json
@@ -65,3 +64,4 @@ Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\refint\GameStore.
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.pdb
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.genruntimeconfig.cache
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\ref\GameStore.Frontend.dll
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\compressed\hpytjbslhg-ewa6uqrgbr.gz

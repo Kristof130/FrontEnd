@@ -1,5 +1,4 @@
-﻿ 
-@page "/editgame"
+﻿@page "/editgame"
 @page "/editgame/{Id:int}"
 @attribute [StreamRendering]
 @rendermode InteractiveServer
@@ -8,80 +7,83 @@
 @inject BerloClient BClient
 @inject BerlesClient B2Client
 
-<PageTitle>@title</PageTitle> 
+<PageTitle>@title</PageTitle>
 <h3>@title</h3>
- @if (Gokartok is  null || Berlok is null || Berles is null)
+@if (Gokartok is null || Berlok is null || Berles is null)
 {
-      <p><em>Loading...</em></p>
+    <p><em>Loading...</em></p>
 }
 else
-{      
+{
     <div class="row">
-    <div class="col-md-4">
-    <EditForm Model="@Berles" FormName="editGame" OnValidSubmit="HandleSubmitAsync" Enhance>
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-       
-   <div class="mb-3">
-        <label for="gokart" class="form-label">Gokart:</label>
-        <InputSelect id="gokart" class="form-select" @bind-Value="Berles.Gokart_Id" >
-            <option value="">-- Select Gokart --</option>       
-                @foreach (var gokart in Gokartok)
-                {
-                    if (gokart.Foglalt_e == 0)
-                    {
-                        <option value="@gokart.Id">@gokart.Gyarto @gokart.Tipus</option>
-                    }
-                    
-                }        
-        </InputSelect>
-       <!-- <ValidationMessage For="() => Gokart.Tipus" />-->
-    </div>  
+        <div class="col-md-4">
+            <EditForm Model="@Berles" FormName="editGame" OnValidSubmit="HandleSubmitAsync" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
 
-<div class="mb-3">
-        <label for="berlo" class="form-label">Bérlők:</label>
+                <div class="mb-3">
+                    <label for="gokart" class="form-label">Gokartok:</label>
+                    <InputSelect id="gokart" class="form-select" @bind-Value="Berles.Gokart_Id">
+                        <option value="">-- Select Gokart --</option>
+                        @foreach (var gokart in Gokartok)
+                        {
+                            if (gokart.Foglalt_e == 0)
+                            {
+                                <option value="@gokart.Id">@gokart.Gyarto @gokart.Tipus</option>
+                            }
 
-        <!-- Előre eldöntött értékek -->
-       <InputSelect id="berlo" class="form-select" @bind-Value="Berles.Berlo_Id" >
-            <option value="">-- Select Person --</option>       
-                @foreach (var item in Berlok)
-                {
-                    <option value="@item.id">@item.Berlo_Neve</option>
-                }      
-        </InputSelect>    
+                        }
+                </InputSelect>
+                <!-- <ValidationMessage For="() => Gokart.Tipus" />-->
+            </div>
 
-        <!-- Kézzel beírható név értékek -->
-     <!--   <InputText id="berlonev" class="form-control" @bind-Value="Berlo.Berlo_Neve" /> -->
+                            <div class="mb-3">
+                                <label for="berlo" class="form-label">Bérlők:</label>
 
-        <!--<ValidationMessage For="() => Gokart.Tipus" />-->
-    </div>
-    
-    <div class="mb-3">
-        <label for="Kezodatum" class="form-label">Bérlés Kezdődátuma:</label>
-        <InputDate id="Kezdodatum" class="form-control" @bind-Value="Berles.KezdoDatum" />
-    </div> 
-    <div class="mb-3">
-        <label for="price" class="form-label">Days:</label>
-        <InputNumber id="price" class="form-control" @bind-Value="Berles.Berles_hossza" />
-        <!--<ValidationMessage For="() => Gokart.NapiAr" />-->
-    </div>  
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a role="button" class="btn btn-secondary" href="/">Cancel</a>  
-</EditForm>
-</div>
-</div>
-}
+                                <!-- Előre eldöntött értékek -->
+                                <!-- <InputSelect id="berlo" class="form-select" @bind-Value="Berles.Berlo_Id" > -->
+                                <!--<option value="">-- Select Person --</option>        
+                                /@foreach (var item in Berlok)
+                                /{
+                            <option value="@item.id">@item.Berlo_Neve</option>
+                            
+                        }      
+                    -->
+
+                        <!-- Kézzel beírható név értékek -->
+                        <InputText @bind-value="BerloNeve" class="form-control" placeholder="Neve..." />
+
+                        <!--<ValidationMessage For="() => Gokart.Tipus" />-->
+                        <!-- </InputSelect> -->
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Kezodatum" class="form-label">Bérlés Kezdődátuma:</label>
+                        <InputDate id="Kezdodatum" class="form-control" @bind-Value="Berles.KezdoDatum" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Bérlés hossza napokban megadva:</label>
+                        <InputNumber id="price" class="form-control" @bind-Value="Berles.Berles_hossza" />
+                        <!--<ValidationMessage For="() => Gokart.NapiAr" />-->
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a role="button" class="btn btn-secondary" href="/">Cancel</a>
+                </EditForm>
+            </div>
+        </div>
+    }
 
 @code {
-    
+
     [Parameter]
     public int? Id { get; set; }
     [SupplyParameterFromForm]
     private GokartDetails? Gokart { get; set; }
     private BerlesDetails? Berles { get; set; }
-    public BerloDetails? Berlo { get; set; }  
+    public BerloDetails? Berlo { get; set; }
     private BerloSummary[]? Berlok;
-    private GokartSummary[]? Gokartok;    
+    private GokartSummary[]? Gokartok;
+    private string? BerloNeve { get; set; }
 
     private string title = string.Empty;
 
@@ -101,16 +103,16 @@ else
         else
         {
             Berles = new BerlesDetails()
-            {                
+            {
                 KezdoDatum = DateOnly.FromDateTime(DateTime.UtcNow)
             };
             title = "Új Berles";
         }
     }
-    protected override async Task OnInitializedAsync() 
+    protected override async Task OnInitializedAsync()
     {
         try
-        {           
+        {
             Gokartok = await GClient.GetGokartokAsync();
             Berlok = await BClient.GetBerlokAsync();
         }
@@ -125,21 +127,54 @@ else
         ArgumentNullException.ThrowIfNull(Berles);
 
         if (Id is null)
+        { //kell costumer oldal is! és akkor ez az oldal vissza megy ez eredetire, és minden más is kell!
+            /* if (!string.IsNullOrWhiteSpace(BerloNeve))
+            {
+            await BClient.AddBerloAsync(new BerloDetails { Berlo_Neve = BerloNeve });
+
+            }*/
+            if (!string.IsNullOrWhiteSpace(BerloNeve))
         {
+            await BClient.AddBerloAsync(new BerloDetails { Berlo_Neve = BerloNeve });
+
+        }
+            Berlok = await BClient.GetBerlokAsync();
+            Berles.Berlo_Id = Berlok.Max(b => b.id); // Feltételezve, hogy a legutóbb hozzáadott bérlő lesz a legnagyobb ID-val rendelkező
             await B2Client.AddBerlesAsync(Berles);
+            BerloNeve = string.Empty;
+            
         }
+        
 
-
-        if (Id is not null)    
+        
+     //
+        Berlok = await BClient.GetBerlokAsync();
+        if (Id is not null)
         {
+            Berles.Berlo_Id = Berlok.Max(b => b.id);
             Berles.ID = Id.Value;
-            await B2Client.UpdateBerlesAsync(Berles);
-        }
-        
+            //await BClient.UpdateBerloAsync(updatedBerlo: new BerloDetails { Berlo_Neve = BerloNeve });
 
-        
+            await BClient.AddBerloAsync(new BerloDetails { Berlo_Neve = BerloNeve });
+            Berlok = await BClient.GetBerlokAsync();
+            Berles.Berlo_Id = Berlok.Max(b => b.id); // Feltételezve, hogy a legutóbb hozzáadott bérlő lesz a legnagyobb ID-val rendelkező
+
+            //Berles.Berlo_Id = Berlok.Max(b => b.id);
+            await B2Client.UpdateBerlesAsync(Berles);
+
+
+
+            
+
+            
+
+            BerloNeve = string.Empty;
+        }
+
+
+
 
 
         NavigationManager.NavigateTo("/");
-    }   
+    }
 }

@@ -11,8 +11,8 @@ public class BerloClient(HttpClient httpClient)
     public async Task<BerloDetails> GetBerloAsync(int id) => 
         await httpClient.GetFromJsonAsync<BerloDetails>($"berlo/{id}") 
         ?? throw new InvalidOperationException($"Berlo with ID {id} not found.");
-    /*public async Task UpdateBerloAsync(GameDetails updatedGame) =>    
-        await httpClient.PutAsJsonAsync($"berlo/{updatedGame.Id}", updatedGame);*/
+    public async Task UpdateBerloAsync(BerloDetails updatedBerlo) =>    
+        await httpClient.PutAsJsonAsync($"berlo/{updatedBerlo.id}", updatedBerlo);
     public async Task DeleteBerloAsync(int id) =>    
         await httpClient.DeleteAsync($"berlo/{id}");    
 }
