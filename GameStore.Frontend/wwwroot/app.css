@@ -1,4 +1,9 @@
-
+/*
+body {
+    background-image: url('istockphoto.jpg');
+    background-size: cover;
+}
+*/
 h1:focus {
     outline: none;
 }
@@ -37,3 +42,4 @@ h1:focus {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+

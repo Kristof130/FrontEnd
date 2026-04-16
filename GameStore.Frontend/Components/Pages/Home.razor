@@ -9,12 +9,12 @@
 <PageTitle>Gokart Kölcsönző</PageTitle>
 
 <div class="mt-2">
-<a class="btn btn-primary" role="button" href="/editgame">Gokárt Bérlése</a>
+<a class="btn btn-primary" role="button" href="/editgame">Bérlés Hozzáadása</a>
 </div>
-
+<div class="hatter">
 @if(Berles is null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Betöltés...</em></p>
 }
 else {
     <table class="table table-striped table-bordered table-hover mt-3">
@@ -23,8 +23,8 @@ else {
         <th>Bérelt Gokart</th>
         <th>Bérlő</th>
         <th class="text-end">Bérlés Kezdődátuma</th>
-        <th>Bérlés Hossza</th>
-        <th>Edit</th>
+        <th>Bérlés Hossza Napokban</th>
+        <th>Módosítás / Törlés</th>
     </thead>
     <tbody>
         @foreach (var Berless in Berles)
@@ -48,13 +48,9 @@ else {
         }
     </tbody>
     </table>
-}
-<style>
-body {
-    background-image: url('gamestore2images.jifi');
-}
 
-</style>
+}
+</div>
 @code {
     private BerlesSummary[]? Berles;
     private BerloSummary[]? Berlo;
@@ -107,4 +103,82 @@ public static string GetBerloNev(BerloSummary[] berlo, int id)
         return $"#{DeleteBerles.GetModalId(Berles1)}";
     }
 }
+<style>
+    body {
+        background-image: url('9203291.jpg');
+        background-size: cover;
+    }
+    .hatter {
+        background-color:rgba(0, 0, 0, 0.7);
+        
+    .table 
+{
+    background-color: rgba(0, 0, 0, 0.2) !important; 
+    color: white !important;
+    border-collapse: collapse !important;
+    border: 2px solid #fff !important; 
+    border-collapse: collapse; 
+    
+}
 
+/* Fejléc (thead) áttetsző sötét háttér */
+.table-dark td 
+{
+    background-color: rgba(0, 0, 0, 0.7) !important; 
+    color: white !important;
+    border-collapse: collapse !important;
+
+}
+
+.table-dark th
+{
+    background-color: rgba(0, 0, 0, 0.7) !important; 
+    color: white !important;
+    border-collapse: collapse !important;
+
+}
+
+.table-row-custom td
+{
+    background-color: rgba(0, 0, 0, 0.7) !important; 
+    color: white !important;
+    border-collapse: collapse !important;
+}
+
+
+/* Fejléc cellák */
+thead th 
+{
+    border: 2px solid #fff; 
+    color: #fff; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 10px; 
+    text-align: left;
+}
+
+/* Tartalom cellák */
+tbody td 
+{
+    border: 2px solid #fff; 
+    color: #fff; 
+    background-color: rgba(0, 0, 0, 0.4); 
+    padding: 10px;
+    text-align: left;
+}
+
+.table-bordered 
+{
+    border-color: white !important;
+}
+
+.table-bordered th,
+.table-bordered td 
+{
+    border: 2px solid white !important;
+}
+        
+    }
+    /* background-color:rgba(0, 0, 0, 0,) ezzel lessz átlátszó*/
+
+
+</style>

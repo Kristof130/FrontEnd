@@ -8,6 +8,13 @@
 @inject BerlesClient B2Client
 
 <PageTitle>@title</PageTitle>
+<style>
+body {
+        background-image: url('asdf.jpg');
+        background-size: cover;
+        color: white;
+    }
+</style>
 <h3>@title</h3>
 @if (Gokartok is null || Berlok is null || Berles is null)
 {
@@ -66,8 +73,8 @@ else
                         <InputNumber id="price" class="form-control" @bind-Value="Berles.Berles_hossza" />
                         <!--<ValidationMessage For="() => Gokart.NapiAr" />-->
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <a role="button" class="btn btn-secondary" href="/">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Mentés</button>
+                    <a role="button" class="btn btn-secondary" href="/">Mégse</a>
                 </EditForm>
             </div>
         </div>
@@ -98,7 +105,7 @@ else
         if (Id is not null)
         {
             Berles = await B2Client.GetBerlesAsync(Id.Value);
-            title = $"Edit {Berles.ID}";
+            title = $"{Berles.ID}. Bérlés módosítása";
         }
         else
         {
@@ -106,7 +113,7 @@ else
             {
                 KezdoDatum = DateOnly.FromDateTime(DateTime.UtcNow)
             };
-            title = "Új Berles";
+            title = "Új Bérlés";
         }
     }
     protected override async Task OnInitializedAsync()

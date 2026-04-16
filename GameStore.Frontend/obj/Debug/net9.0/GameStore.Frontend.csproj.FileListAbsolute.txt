@@ -64,4 +64,4 @@ Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\refint\GameStore.
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.pdb
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\GameStore.Frontend.genruntimeconfig.cache
 Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\ref\GameStore.Frontend.dll
-Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\compressed\hpytjbslhg-ewa6uqrgbr.gz
+Z:\tejfolvizsga\GameStore2\GameStore.Frontend\obj\Debug\net9.0\compressed\hpytjbslhg-nw43okl547.gz
