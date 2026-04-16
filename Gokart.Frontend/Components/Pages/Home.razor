@@ -1,0 +1,184 @@
+﻿@page "/"
+@using Gokart.Frontend.Clients
+@using Gokart.Frontend.Models
+@inject BerloClient BClient
+@inject BerlesClient B2Client
+@inject GokartokClient GClient
+@attribute [StreamRendering]
+
+<PageTitle>Gokart Kölcsönző</PageTitle>
+
+<div class="mt-2">
+<a class="btn btn-primary" role="button" href="/editgame">Bérlés Hozzáadása</a>
+</div>
+<div class="hatter">
+@if(Berles is null)
+{
+    <p><em>Betöltés...</em></p>
+}
+else {
+    <table class="table table-striped table-bordered table-hover mt-3">
+    <thead class="table-dark">
+        
+        <th>Bérelt Gokart</th>
+        <th>Bérlő</th>
+        <th class="text-end">Bérlés Kezdődátuma</th>
+        <th>Bérlés Hossza Napokban</th>
+        <th>Módosítás / Törlés</th>
+    </thead>
+    <tbody>
+        @foreach (var Berless in Berles)
+        {
+            <tr>
+
+                <td>@GetGokartNev(Gokart, Berless.Gokart_Id)</td>
+                <td>@GetBerloNev(Berlo, Berless.Berlo_Id)</td>
+                <td class="text-end">@Berless.KezdoDatum</td>
+                <td>@Berless.Berles_hossza</td>
+                <td>
+                    <div class="d-flex">
+                        <a class="btn btn-primary me-2" role="button" href="@GameUrl(Berless.ID)">
+                        <i class="bi bi-pencil"></i>
+                        </a>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="@GetDeleteModalId(Berless)"><i class="bi bi-x-lg"></i></button> 
+                    </div>
+                    <DeleteBerles Berless="@Berless" />
+                </td>                
+            </tr>
+        }
+    </tbody>
+    </table>
+
+}
+</div>
+@code {
+    private BerlesSummary[]? Berles;
+    private BerloSummary[]? Berlo;
+    private GokartSummary[]? Gokart;
+
+
+    
+    
+    public static string GetGokartNev(GokartSummary[] gokart, int id)
+    {
+        foreach (var item in gokart)
+                {
+                    if (item.Id == id)
+                    {
+                         return item.Gyarto + " " + item.Tipus;
+                    }
+                }
+      
+        return "N/A";
+    }
+
+public static string GetBerloNev(BerloSummary[] berlo, int id)
+    {
+        foreach (var item in berlo)
+                {
+                    if (item.id == id)
+                    {
+                         return item.Berlo_Neve;
+                    }
+                }
+      
+        return "N/A";
+    }
+
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Berles = await B2Client.GetBerlesekAsync();
+        Gokart = await GClient.GetGokartokAsync();
+        Berlo = await BClient.GetBerlokAsync();
+    }
+
+    private static string GameUrl(int id) => $"/editgame/{id}";     
+
+    
+    private string GetDeleteModalId(BerlesSummary Berles1) 
+    {
+        return $"#{DeleteBerles.GetModalId(Berles1)}";
+    }
+}
+<style>
+    body {
+        background-image: url('9203291.jpg');
+        background-size: cover;
+    }
+    .hatter {
+        background-color:rgba(0, 0, 0, 0.7);
+        
+    .table 
+{
+    background-color: rgba(0, 0, 0, 0.2) !important; 
+    color: white !important;
+    border-collapse: collapse !important;
+    border: 2px solid #fff !important; 
+    border-collapse: collapse; 
+    
+}
+
+/* Fejléc (thead) áttetsző sötét háttér */
+.table-dark td 
+{
+    background-color: rgba(0, 0, 0, 0.7) !important; 
+    color: white !important;
+    border-collapse: collapse !important;
+
+}
+
+.table-dark th
+{
+    background-color: rgba(0, 0, 0, 0.7) !important; 
+    color: white !important;
+    border-collapse: collapse !important;
+
+}
+
+.table-row-custom td
+{
+    background-color: rgba(0, 0, 0, 0.7) !important; 
+    color: white !important;
+    border-collapse: collapse !important;
+}
+
+
+/* Fejléc cellák */
+thead th 
+{
+    border: 2px solid #fff; 
+    color: #fff; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 10px; 
+    text-align: left;
+}
+
+/* Tartalom cellák */
+tbody td 
+{
+    border: 2px solid #fff; 
+    color: #fff; 
+    background-color: rgba(0, 0, 0, 0.4); 
+    padding: 10px;
+    text-align: left;
+}
+
+.table-bordered 
+{
+    border-color: white !important;
+}
+
+.table-bordered th,
+.table-bordered td 
+{
+    border: 2px solid white !important;
+}
+        
+    }
+    /* background-color:rgba(0, 0, 0, 0,) ezzel lessz átlátszó*/
+
+
+</style>
